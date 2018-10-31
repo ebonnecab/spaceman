@@ -100,9 +100,8 @@ def letter_dashes():
   dashes = "-" * len(word)
   print(dashes)
 
-letter_dashes()
-guess_letter()
-#test rounds
 
-# for _ in list(range(1,5)):
-#   letter_dashes()
+#test rounds
+for _ in list(range(1,5)):
+  letter_dashes()
+  guess_letter()
