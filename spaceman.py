@@ -62,6 +62,7 @@
 # # secret_word = load_word()
 # # spaceman(load_word())
 
+
 #importing time module
 import time
 
@@ -72,10 +73,9 @@ import random
 guessed_letters =[]
 
 #asks user their name
-name = input("What is your name?: ")
-
-
-print("Hello {}! Are you ready to play Spaceman?".format(name))
+def user_name():
+  name = input("What is your name?: ")
+  print("Hello {}! Are you ready to play Spaceman?".format(name))
 
 
 time.sleep(1)
@@ -88,20 +88,38 @@ def load_word():
 
 def guess_letter():
   letter = input("Guess a letter!: ")
-  secret_word = load_word()
-  if letter in secret_word:
-    print("Good job! {} was in the word".format(letter))
-  else:
-    guessed_letters.append(letter)
-    print(guessed_letters)
+  if len(letter) > 1:
+    print("Not a valid guess! Try again")
+  
+  elif not letter.isalpha():
+    print("Not a valid guess! Try again")
 
+  elif letter == "":
+    print("Not a valid guess! Try again")
+  
+  elif letter == " ":
+    print("Not a valid guess! Try again")
+
+  return letter
+  
 def letter_dashes():
   word = load_word()
-  dashes = "-" * len(word)
-  print(dashes)
+  dashes = list("_" * (len(word) - 1))
+  return dashes
 
 
-#test rounds
-for _ in list(range(1,5)):
-  letter_dashes()
-  guess_letter()
+
+
+def main():
+  # user_name()
+  print(letter_dashes())
+  # guess_letter()
+
+
+
+# #test rounds
+# for _ in list(range(1,5)):
+#   letter_dashes()
+#   guess_letter()
+
+main()
