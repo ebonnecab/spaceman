@@ -32,6 +32,7 @@ def game_over(reset):
     reset()
   elif answer != 'y' or answer != 'n':
     print("Invalid input")
+    game_over(reset)
   else:
     print("See you next time!")
     return False
@@ -49,29 +50,27 @@ def letter_dashes():
   return list(dashes)
 
 
-# guessed_letters = []
+guessed_letters = []
 def guessed_letters_list():
-  print("These are the letters you already guessed: {}".format(guessed_letters))
+  print("List of Guessed Letters: {}".format(guessed_letters))
 
-def right_guess():
-  print("{} was in the word! +\n{}".format(user_guess, guessed_letters_list))
+def right_guess(guess, guesses):
+  print("{} was in the word! You have {} left.".format(guess, guesses))
 
   
 
 def win_guess():
   print("Good job! The word was {}".format(secret_word))
 
-def wrong_guess(letter,lst):
-  print("{} is wrong. These are the letters you guessed already: {}".format(letter, lst))
+def wrong_guess(letter, guesses_left):
+  print("{} is wrong. You have {} guesses left.".format(letter, guesses_left))
 
-def guess_message(letter,lst):
-  print("You have already guessed {}. These are the letters you guessed already: {}".format(letter,lst))
 
 def game():
   user_rules()
   guesses_left = 7
   dashes = letter_dashes()
-  print(dashes)
+  print(((" ").join(dashes)))
   correct_guess = []
 
   game_on = True
@@ -79,14 +78,24 @@ def game():
   while game_on:
     letter = user_guess()
     guessed_letters_list()
+  
 
     if letter in secret_word:
       dashes[secret_word.index(letter)] = letter
+      right_guess(letter, guesses_left)
       print(dashes)
+      correct_guess.append(letter)
+      if len(secret_word) == len(correct_guess):
+        win_guess()
+        game_over(game)
     elif letter not in secret_word:
-      wrong_guess(letter,correct_guess)
+      guesses_left -= 1
+      wrong_guess(letter, guesses_left)
+      guessed_letters.append(letter)
+      if guesses_left == 0:
+        game_over(game)
     else:
-      game_over(game)
+      print("Try Again")
 
 
   
